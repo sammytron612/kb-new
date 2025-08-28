@@ -37,13 +37,11 @@ class ArticleController extends Controller
      */
     public function store(Request $request)
     {
-        // Debug: Log the request data
-        \Log::info('Form submission data:', $request->all());
 
         $validated = $request->validate([
             'title' => 'required|string|max:255',
             'tags' => 'nullable|string',
-            'sectionid' => 'required|integer|exists:sections,id',
+            'sectionId' => 'required|integer|exists:sections,id',
             'attachments.*' => 'nullable|file|max:10240',
             'attachments' => 'nullable|array|max:3',
             'scope' => 'required|integer|in:1,2',
