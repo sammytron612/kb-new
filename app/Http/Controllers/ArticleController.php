@@ -146,4 +146,12 @@ class ArticleController extends Controller
 
         return redirect()->route('dashboard')->with('success', 'Article deleted successfully.');
     }
+
+
+    public function shared(Article $article): void
+    {
+        $article->increment('views');
+
+        return view('articles.shared', compact('article'));
+    }
 }
