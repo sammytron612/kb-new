@@ -73,9 +73,7 @@
                                 :required="true"
                                 placeholder="Search or select a section..."
                             />
-                            @error('sectionId') <span class="text-red-500 text-sm mt-1 block">{{ $message }}</span> @enderror
-
-
+                        </div>
 
                         <!-- Tags -->
                         <div>

@@ -113,9 +113,7 @@ class ArticleController extends Controller
             'article_body' => 'required|string',
         ]);
 
-        // Map sectionId to sectionid for the article service
-        $validated['sectionid'] = $validated['sectionId'];
-        unset($validated['sectionId']);
+        /
 
 
 
