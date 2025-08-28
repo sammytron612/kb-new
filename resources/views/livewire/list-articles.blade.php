@@ -27,20 +27,20 @@
 
                         <!-- Action Buttons (stacks on mobile) -->
                         <div class="flex items-center gap-2 sm:ml-4 flex-shrink-0">
-                            <a href="{{ route('articles.show', $article->id) }}"
+                            <a href="{{ route('article.show', $article->id) }}"
                                class="text-base sm:text-sm lg:text-md inline-flex items-center px-3 py-2 bg-gray-500 text-white rounded-lg hover:bg-gray-600 transition-all duration-200 text-xs sm:text-sm font-medium">
                                 <svg class="w-4 h-4 sm:mr-1" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 12a3 3 0 11-6 0 3 3 0 016 0z"></path><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M2.458 12C3.732 7.943 7.523 5 12 5c4.478 0 8.268 2.943 9.542 7-1.274 4.057-5.064 7-9.542 7-4.477 0-8.268-2.943-9.542-7z"></path></svg>
                                 <span class="hidden sm:inline">View</span>
                             </a>
                             @can('canEdit', $article)
-                                <a href="{{ route('articles.edit', $article->id) }}"
+                                <a href="{{ route('article.edit', $article->id) }}"
                                    class="text-base sm:text-sm lg:text-md inline-flex items-center px-3 py-2 bg-blue-500 text-white rounded-lg hover:bg-blue-600 transition-all duration-200 text-xs sm:text-sm font-medium">
                                     <svg class="w-4 h-4 sm:mr-1" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M11 5H6a2 2 0 00-2 2v11a2 2 0 002 2h11a2 2 0 002-2v-5m-1.414-9.414a2 2 0 112.828 2.828L11.828 15H9v-2.828l8.586-8.586z" /></svg>
                                     <span class="hidden sm:inline">Edit</span>
                                 </a>
                             @endcan
                             @can('canDelete', $article)
-                                <form action="{{ route('articles.destroy', $article->id) }}" method="POST" onsubmit="return confirm('Are you sure you want to delete this article?');">
+                                <form action="{{ route('article.destroy', $article->id) }}" method="POST" onsubmit="return confirm('Are you sure you want to delete this article?');">
                                     @csrf
                                     @method('DELETE')
                                     <button type="submit" class="text-base sm:text-sm lg:text-md inline-flex items-center px-3 py-2 bg-red-500 text-white rounded-lg hover:bg-red-600 transition-all duration-200 text-xs sm:text-sm font-medium">
