@@ -61,9 +61,7 @@
                             @error('title') <span class="text-red-500 text-sm mt-1 block">{{ $message }}</span> @enderror
                         </div>
 
-
                         <!-- Section -->
-
                         <div>
                             <label for="section" class="block text-sm font-semibold text-gray-700 dark:text-gray-300 mb-2">
                                 Section <span class="text-red-500">*</span>

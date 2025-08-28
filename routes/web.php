@@ -38,7 +38,7 @@ Route::middleware(['auth'])->group(function () {
 
     Route::resource('article', ArticleController::class);
 });
-//Route::get('articles/{id}/edit', [\App\Http\Controllers\EditArticleController::class, 'edit'])->name('articles.edit')->middleware(['can:isAdmin'] || 'can:CanEditOrDelete');
+
 
 ////////// ADMIN ROUTES /////////
 
