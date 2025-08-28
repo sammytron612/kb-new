@@ -69,18 +69,13 @@
                             </label>
                             <livewire:section-selector
                                 name="sectionId"
-                                :selected="old('sectionId', $article->sectionid)"
+                                :selected="old('section', $article->sectionid)"
                                 :required="true"
                                 placeholder="Search or select a section..."
                             />
                             @error('sectionId') <span class="text-red-500 text-sm mt-1 block">{{ $message }}</span> @enderror
 
-                            <!-- Debug: Show current values -->
-                            <div class="text-xs text-gray-500 mt-1">
-                                Debug - Article sectionid: {{ $article->sectionid ?? 'NULL' }},
-                                Old sectionId: {{ old('sectionId', 'NULL') }}
-                            </div>
-                        </div>
+
 
                         <!-- Tags -->
                         <div>
