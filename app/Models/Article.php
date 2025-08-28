@@ -19,7 +19,7 @@ class Article extends Model
         'slug',
         'author',
         'author_name',
-        'sectionid',
+        'sectionId',
         'tags',
         'attachments',
         'views',
@@ -50,7 +50,7 @@ class Article extends Model
 
     public function section()
     {
-        return $this->belongsTo(Section::class, 'sectionid', 'id');
+        return $this->belongsTo(Section::class, 'sectionId', 'id');
     }
 
     public function authorUser()

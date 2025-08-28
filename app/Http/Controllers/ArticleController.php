@@ -105,13 +105,17 @@ class ArticleController extends Controller
         $validated = $request->validate([
             'title' => 'required|string|max:255',
             'tags' => 'nullable|string',
-            'sectionid' => 'required|integer|exists:sections,id',
+            'sectionId' => 'required|integer|exists:sections,id',
             'scope' => 'required|integer|in:1,2',
             'attachments.*' => 'nullable|file|max:10240',
             'published' => 'required|integer|in:0,1',
             'expires' => 'nullable|date',
             'article_body' => 'required|string',
         ]);
+
+        // Map sectionId to sectionid for the article service
+        $validated['sectionid'] = $validated['sectionId'];
+        unset($validated['sectionId']);
 
 
 

@@ -16,7 +16,7 @@ return new class extends Migration
             $table->string('slug')->unique()->nullable();
             $table->unsignedBigInteger('author');
             $table->string('author_name');
-            $table->unsignedBigInteger('sectionid');
+            $table->unsignedBigInteger('sectionId');
             $table->json('tags')->nullable();
             $table->json('attachments')->nullable();
             $table->unsignedBigInteger('views')->default(0);
