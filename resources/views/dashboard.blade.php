@@ -109,7 +109,7 @@
             <div class="grid grid-cols-1 sm:grid-cols-3 gap-4 mb-12">
                 <!-- Create Article -->
                 @can(['canCreate'])
-                <a href="/articles/create" class="w-full group block">
+                <a href="{{route('article.create')}}" class="w-full group block">
                     <div class="bg-gradient-to-br from-blue-500 to-blue-600 hover:from-blue-600 hover:to-blue-700 rounded-xl shadow-lg hover:shadow-xl p-6 transition-all duration-200 transform hover:scale-105">
                         <div class="flex items-center gap-4">
                             <div class="w-12 h-12 bg-white/20 backdrop-blur-sm rounded-xl flex items-center justify-center">
