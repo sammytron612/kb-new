@@ -1,5 +1,4 @@
 <?php
-<?php
 
 namespace App\Services;
 
@@ -16,7 +15,7 @@ class AttachmentsService
         $attachmentPaths = [];
 
         foreach ($files as $file) {
-            /** @var UploadedFile $file */
+
             $originalName = pathinfo($file->getClientOriginalName(), PATHINFO_FILENAME);
             $extension = $file->getClientOriginalExtension();
             $filename = $originalName . "-" . time() . "." . $extension;

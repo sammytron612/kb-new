@@ -29,9 +29,9 @@ class ArticleService
 
         try {
             // Handle file attachments first
-            $attachmentPaths = [];
+            $newAttachmentPaths = [];
             if ($files) {
-                $attachmentPaths = $this->attachmentsService->handleAttachments($files);
+                $newAttachmentPaths = $this->attachmentsService->handleAttachments($files); // Fix: actually handle the files
             }
 
             // Create article without syncing to search
