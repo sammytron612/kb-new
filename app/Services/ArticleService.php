@@ -40,7 +40,7 @@ class ArticleService
                     'title' => $validated['title'],
                     'author' => Auth::id(),
                     'author_name' => Auth::user()->name ?? '',
-                    'sectionid' => $validated['sectionid'],
+                    'sectionId' => $validated['sectionId'],
                     'tags' => isset($validated['tags']) ? explode(',', $validated['tags']) : [],
                     'attachments' => $attachmentPaths,
                     'views' => 0,
