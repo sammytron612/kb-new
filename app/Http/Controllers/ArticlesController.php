@@ -43,7 +43,7 @@ class ArticlesController extends Controller
 
         return redirect()->route('dashboard')->with('success', 'Article deleted successfully.');
     }
-
+/*
     public function downloadAttachments(Article $article)
     {
         if (empty($article->attachments) || count($article->attachments) === 0) {
@@ -73,7 +73,7 @@ class ArticlesController extends Controller
 
     abort(500, 'Could not create zip file');
 }
-
+*/
     public function shared(Article $article)
     {
         // Increment view count

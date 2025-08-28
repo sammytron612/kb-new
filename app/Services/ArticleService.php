@@ -29,9 +29,9 @@ class ArticleService
 
         try {
             // Handle file attachments first
-            $newAttachmentPaths = [];
+            $attachmentPaths = [];
             if ($files) {
-                $newAttachmentPaths = $this->attachmentsService->handleAttachments($files); // Fix: actually handle the files
+                $attachmentPaths = $this->attachmentsService->handleAttachments($files);
             }
 
             // Create article without syncing to search
@@ -125,8 +125,10 @@ class ArticleService
         try {
             // Handle new attachments
             $newAttachmentPaths = [];
+
             if ($files) {
-                $this->attachmentsService->deleteAttachments($article->attachments ?? []);
+                // Process new files
+                $newAttachmentPaths = $this->attachmentsService->handleAttachments($files);
             }
 
             // Merge with existing attachments
