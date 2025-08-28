@@ -89,7 +89,7 @@ class ArticleController extends Controller
      */
     public function update(Request $request, int $id)
     {
-        dd($request->all());
+
         $article = Article::findOrFail($id);
 
         // Check attachment count limit
@@ -101,7 +101,7 @@ class ArticleController extends Controller
             return redirect()->back()->withErrors(['attachments' => 'You can only have up to 3 attachments.']);
         }
 
-        dd($request->all());
+
         $validated = $request->validate([
             'title' => 'required|string|max:255',
             'tags' => 'nullable|string',
