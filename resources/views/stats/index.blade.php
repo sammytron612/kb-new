@@ -1,4 +1,3 @@
-<!-- filepath: c:\Users\Kevin\kb-new\resources\views\stats\index.blade.php -->
 <x-layouts.app.main :title="__('Site Statistics')">
     <div class="min-h-screen bg-gray-50 dark:bg-gray-900 relative">
         <!-- Subtle Background Elements -->
