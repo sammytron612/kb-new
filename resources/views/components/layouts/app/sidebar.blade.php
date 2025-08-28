@@ -55,7 +55,7 @@
                 <span class="text-sm">Search</span>
             </a>
             @can('canCreate')
-            <a href="{{ route('articles.create') }}" class="flex items-center px-3 py-2 rounded-lg hover:bg-blue-100 dark:hover:bg-blue-900 text-gray-900 dark:text-white">
+            <a href="{{ route('article.create') }}" class="flex items-center px-3 py-2 rounded-lg hover:bg-blue-100 dark:hover:bg-blue-900 text-gray-900 dark:text-white">
                 <flux:icon.plus class="w-5 h-5 mr-2 text-blue-600 dark:text-blue-400" />
                 <span class="text-sm">Create</span>
             </a>
