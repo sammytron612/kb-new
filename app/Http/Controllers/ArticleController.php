@@ -37,14 +37,17 @@ class ArticleController extends Controller
      */
     public function store(Request $request)
     {
+        // Debug: Log the request data
+        \Log::info('Form submission data:', $request->all());
+
         $validated = $request->validate([
             'title' => 'required|string|max:255',
             'tags' => 'nullable|string',
             'sectionid' => 'required|integer|exists:sections,id',
-            'attachments.*' => 'file|max:10240',
-            'attachments' => 'array|max:3',
-            'scope' => 'required',
-            'published' => 'required',
+            'attachments.*' => 'nullable|file|max:10240',
+            'attachments' => 'nullable|array|max:3',
+            'scope' => 'required|integer|in:1,2',
+            'published' => 'required|integer|in:0,1',
             'article_body' => 'required|string',
             'expires' => 'nullable|date',
         ]);
@@ -86,6 +89,7 @@ class ArticleController extends Controller
      */
     public function update(Request $request, int $id)
     {
+        dd($request->all());
         $article = Article::findOrFail($id);
 
         // Check attachment count limit
@@ -97,13 +101,14 @@ class ArticleController extends Controller
             return redirect()->back()->withErrors(['attachments' => 'You can only have up to 3 attachments.']);
         }
 
+        dd($request->all());
         $validated = $request->validate([
             'title' => 'required|string|max:255',
             'tags' => 'nullable|string',
-            'sectionid' => 'required|integer',
-            'scope' => 'required',
-            'attachments.*' => 'file|max:10240',
-            'published' => 'required',
+            'sectionid' => 'required|integer|exists:sections,id',
+            'scope' => 'required|integer|in:1,2',
+            'attachments.*' => 'nullable|file|max:10240',
+            'published' => 'required|integer|in:0,1',
             'expires' => 'nullable|date',
             'article_body' => 'required|string',
         ]);

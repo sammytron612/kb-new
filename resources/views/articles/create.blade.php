@@ -63,17 +63,20 @@
 
 
                         <!-- Section -->
-
                         <div>
-                            <label for="section" class="block text-sm font-semibold text-gray-700 dark:text-gray-300 mb-2">
+                            <label for="sectionid" class="block text-sm font-semibold text-gray-700 dark:text-gray-300 mb-2">
                                 Section <span class="text-red-500">*</span>
                             </label>
-                            <livewire:section-selector
-                                name="sectionid"
-                                :selected="old('sectionid')"
-                                :required="true"
-                                placeholder="Search or select a section..."
-                            />
+                            <select name="sectionid" id="sectionid" required
+                                    class="w-full px-4 py-3 border border-gray-300 dark:border-zinc-600 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-transparent dark:bg-zinc-700 dark:text-white transition-all duration-200">
+                                <option value="">Select a section...</option>
+                                @foreach($sections as $section)
+                                    <option value="{{ $section->id }}" @if(old('sectionid') == $section->id) selected @endif>
+                                        {{ $section->name }}
+                                    </option>
+                                @endforeach
+                            </select>
+                            @error('sectionid') <span class="text-red-500 text-sm mt-1 block">{{ $message }}</span> @enderror
                         </div>
 
                         <!-- Tags -->
@@ -122,11 +125,11 @@
                                 <option value="0" @if(old('published')==0) selected @endif>
                                     📝 Draft - Save for later
                                 </option>
-                                <option value="1" @if(old('status')==1) selected @endif>
+                                <option value="1" @if(old('published')==1) selected @endif>
                                     ✅ Published - Make it live
                                 </option>
                             </select>
-                            @error('status') <span class="text-red-500 text-sm mt-1 block">{{ $message }}</span> @enderror
+                            @error('published') <span class="text-red-500 text-sm mt-1 block">{{ $message }}</span> @enderror
                         </div>
 
                         <!-- Expires -->

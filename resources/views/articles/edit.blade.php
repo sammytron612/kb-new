@@ -68,11 +68,34 @@
                                 Section <span class="text-red-500">*</span>
                             </label>
                             <livewire:section-selector
-                                name="sectionId"
-                                :selected="old('section', $article->sectionid)"
+                                name="sectionid"
+                                :selected="old('sectionid', $article->sectionid)"
                                 :required="true"
                                 placeholder="Search or select a section..."
                             />
+                            @error('sectionid') <span class="text-red-500 text-sm mt-1 block">{{ $message }}</span> @enderror
+
+                            <!-- Debug: Show current values -->
+                            <div class="text-xs text-gray-500 mt-1">
+                                Debug - Article sectionid: {{ $article->sectionid ?? 'NULL' }},
+                                Old sectionid: {{ old('sectionid', 'NULL') }}
+                            </div>
+
+                            <!-- Additional debug for form submission -->
+                            <script>
+                                document.addEventListener('DOMContentLoaded', function() {
+                                    const form = document.querySelector('form');
+                                    if (form) {
+                                        form.addEventListener('submit', function(e) {
+                                            console.log('Form data being submitted:');
+                                            const formData = new FormData(this);
+                                            for (let [key, value] of formData.entries()) {
+                                                console.log(`${key}: ${value}`);
+                                            }
+                                        });
+                                    }
+                                });
+                            </script>
                         </div>
 
                         <!-- Tags -->
@@ -369,6 +392,42 @@
         window.addEventListener('beforeunload', function() {
             if (tinymceObserver) {
                 tinymceObserver.disconnect();
+            }
+        });
+
+        // Ensure Livewire section selector value is included in form submission
+        document.querySelector('form').addEventListener('submit', function(e) {
+            // Look for the Livewire section selector
+            const sectionSelector = document.querySelector('[wire\\:model*="selected"], [x-data*="sectionSelector"]');
+
+            if (sectionSelector) {
+                // Find or create hidden input for sectionid
+                let hiddenInput = document.querySelector('input[name="sectionid"]');
+                if (!hiddenInput) {
+                    hiddenInput = document.createElement('input');
+                    hiddenInput.type = 'hidden';
+                    hiddenInput.name = 'sectionid';
+                    this.appendChild(hiddenInput);
+                }
+
+                // Try to get the value from various possible Livewire data sources
+                const livewireComponent = sectionSelector.closest('[wire\\:id]');
+                if (livewireComponent && window.Livewire) {
+                    try {
+                        const component = window.Livewire.find(livewireComponent.getAttribute('wire:id'));
+                        if (component && component.get('selected')) {
+                            hiddenInput.value = component.get('selected');
+                        }
+                    } catch (error) {
+                        console.log('Could not get Livewire component value:', error);
+                    }
+                }
+
+                // Fallback: try to get from any select or input within the component
+                const selectInput = sectionSelector.querySelector('select, input[type="hidden"]');
+                if (selectInput && selectInput.value) {
+                    hiddenInput.value = selectInput.value;
+                }
             }
         });
     </script>
