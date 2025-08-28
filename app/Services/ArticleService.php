@@ -17,6 +17,9 @@ class ArticleService
 {
     use SendsEmailNotifications, EmailsEnabled;
 
+    public function __construct(private AttachmentsService $attachmentsService)
+    {
+    }
     /**
      * Create a new article with all related data
      */
@@ -28,7 +31,7 @@ class ArticleService
             // Handle file attachments first
             $attachmentPaths = [];
             if ($files) {
-                $attachmentPaths = $this->handleAttachments($files);
+                $attachmentPaths = $this->attachmentsService->handleAttachments($files);
             }
 
             // Create article without syncing to search
@@ -90,24 +93,6 @@ class ArticleService
     }
 
     /**
-     * Handle file attachments
-     */
-    private function handleAttachments(array $files): array
-    {
-        $attachmentPaths = [];
-
-        foreach ($files as $file) {
-            $originalName = pathinfo($file->getClientOriginalName(), PATHINFO_FILENAME);
-            $extension = $file->getClientOriginalExtension();
-            $filename = $originalName . "-" . time() . "." . $extension;
-            $path = $file->storeAs('attachments', $filename, 'public');
-            $attachmentPaths[] = $path;
-        }
-
-        return $attachmentPaths;
-    }
-
-    /**
      * Sync article to search index
      */
     private function syncToSearchIndex(Article $article): void
@@ -141,7 +126,7 @@ class ArticleService
             // Handle new attachments
             $newAttachmentPaths = [];
             if ($files) {
-                $newAttachmentPaths = $this->handleAttachments($files);
+                $this->attachmentsService->deleteAttachments($article->attachments ?? []);
             }
 
             // Merge with existing attachments
@@ -195,11 +180,7 @@ class ArticleService
             $article->unsearchable();
 
             // Delete physical attachment files
-            if (!empty($article->attachments)) {
-                foreach ($article->attachments as $attachment) {
-                    \Storage::disk('public')->delete($attachment);
-                }
-            }
+            $this->attachmentsService->deleteAttachments($article->attachments ?? []);
 
             // Delete article body
             $article->body()->delete();

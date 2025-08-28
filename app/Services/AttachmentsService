@@ -1,0 +1,71 @@
+<?php
+<?php
+
+namespace App\Services;
+
+use Illuminate\Support\Facades\Storage;
+
+class AttachmentsService
+{
+
+    /**
+     * Handle file attachments upload.
+     */
+    public function handleAttachments(array $files): array
+    {
+        $attachmentPaths = [];
+
+        foreach ($files as $file) {
+            /** @var UploadedFile $file */
+            $originalName = pathinfo($file->getClientOriginalName(), PATHINFO_FILENAME);
+            $extension = $file->getClientOriginalExtension();
+            $filename = $originalName . "-" . time() . "." . $extension;
+            $path = $file->storeAs('attachments', $filename, 'public');
+            $attachmentPaths[] = $path;
+        }
+
+        return $attachmentPaths;
+    }
+
+    /**
+     * Download all attachments as a zip file.
+     */
+    public function downloadAttachments(array $attachments, int $articleId)
+    {
+        if (empty($attachments)) {
+            abort(404, 'No attachments found');
+        }
+
+        $zip = new \ZipArchive();
+        $zipFileName = 'article-' . $articleId . '-attachments.zip';
+        $zipPath = storage_path('app/temp/' . $zipFileName);
+
+        // Create temp directory if it doesn't exist
+        if (!file_exists(storage_path('app/temp'))) {
+            mkdir(storage_path('app/temp'), 0755, true);
+        }
+
+        if ($zip->open($zipPath, \ZipArchive::CREATE) === TRUE) {
+            foreach ($attachments as $attachment) {
+                $filePath = storage_path('app/public/' . $attachment);
+                if (file_exists($filePath)) {
+                    $zip->addFile($filePath, basename($attachment));
+                }
+            }
+            $zip->close();
+
+            return response()->download($zipPath)->deleteFileAfterSend();
+        }
+
+        abort(500, 'Could not create zip file');
+    }
+
+    public function deleteAttachments(array $attachments): void
+    {
+        if (!empty($attachments)) {
+            foreach ($attachments as $attachment) {
+                Storage::disk('public')->delete($attachment);
+            }
+        }
+    }
+}
