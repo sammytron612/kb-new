@@ -9,6 +9,7 @@ use App\Http\Controllers\AdminController;
 use App\Livewire\ArticleSearch;
 use App\Http\Controllers\DraftsController;
 use App\Http\Controllers\EmailController;
+use App\Http\Controllers\ArticleController;
 
 
 
@@ -41,6 +42,7 @@ Route::middleware(['auth'])->group(function () {
     Route::get('/sections', [\App\Http\Controllers\SectionsController::class, 'index'])->name('sections.index')->middleware('can:canCreate');
     Route::post('/sections', [\App\Http\Controllers\SectionsController::class, 'store'])->name('sections.store')->middleware('can:canCreate');
 
+    Route::resource('article', ArticleController::class);
 });
 //Route::get('articles/{id}/edit', [\App\Http\Controllers\EditArticleController::class, 'edit'])->name('articles.edit')->middleware(['can:isAdmin'] || 'can:CanEditOrDelete');
 
