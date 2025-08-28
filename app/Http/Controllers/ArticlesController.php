@@ -9,9 +9,8 @@ use Illuminate\Support\Facades\Gate;
 
 class ArticlesController extends Controller
 {
-    public function __construct(
-        private ArticleService $articleService
-    ) {
+    public function __construct(private ArticleService $articleService)
+    {
 
     }
 
