@@ -20,7 +20,7 @@
                 <!-- Mobile: Centered Action Buttons -->
                 <div class="flex items-center justify-center gap-2 flex-wrap md:hidden">
                     @can('canEdit', $article)
-                        <a href="{{ route('articles.edit', $article->id) }}" class="inline-flex items-center justify-center px-3 py-2 bg-blue-600 text-white rounded-lg hover:bg-blue-700 transition-colors text-sm font-medium shadow-sm">
+                        <a href="{{ route('article.edit', $article->id) }}" class="inline-flex items-center justify-center px-3 py-2 bg-blue-600 text-white rounded-lg hover:bg-blue-700 transition-colors text-sm font-medium shadow-sm">
                             <svg class="w-4 h-4 sm:mr-1.5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M11 5H6a2 2 0 00-2 2v11a2 2 0 002 2h11a2 2 0 002-2v-5m-1.414-9.414a2 2 0 112.828 2.828L11.828 15H9v-2.828l8.586-8.586z"></path></svg>
                             <span class="hidden sm:inline">Edit</span>
                         </a>
@@ -31,7 +31,7 @@
                     </button>
                     @can('canDelete', $article)
                         <div x-data>
-                            <form id="delete-form-{{ $article->id }}" action="{{ route('articles.destroy', $article->id) }}" method="POST" class="hidden">
+                            <form id="delete-form-{{ $article->id }}" action="{{ route('article.destroy', $article->id) }}" method="POST" class="hidden">
                                 @csrf
                                 @method('DELETE')
                             </form>
@@ -53,7 +53,7 @@
                         <!-- Action Buttons for Desktop -->
                         <div class="hidden md:flex items-center gap-2 flex-shrink-0">
                             @can('canEdit', $article)
-                                <a href="{{ route('articles.edit', $article->id) }}" class="inline-flex items-center justify-center px-3 py-2 bg-blue-600 text-white rounded-lg hover:bg-blue-700 transition-colors text-sm font-medium shadow-sm">
+                                <a href="{{ route('article.edit', $article->id) }}" class="inline-flex items-center justify-center px-3 py-2 bg-blue-600 text-white rounded-lg hover:bg-blue-700 transition-colors text-sm font-medium shadow-sm">
                                     <svg class="w-4 h-4 mr-1.5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M11 5H6a2 2 0 00-2 2v11a2 2 0 002 2h11a2 2 0 002-2v-5m-1.414-9.414a2 2 0 112.828 2.828L11.828 15H9v-2.828l8.586-8.586z"></path></svg>
                                     <span>Edit</span>
                                 </a>
@@ -64,7 +64,7 @@
                             </button>
                             @can('canDelete', $article)
                                 <div x-data>
-                                    <form id="delete-form-{{ $article->id }}" action="{{ route('articles.destroy', $article->id) }}" method="POST" class="hidden">
+                                    <form id="delete-form-{{ $article->id }}" action="{{ route('article.destroy', $article->id) }}" method="POST" class="hidden">
                                         @csrf
                                         @method('DELETE')
                                     </form>
@@ -130,7 +130,7 @@
                                 </div>
                                 @if(count($article->attachments) > 1)
                                     <div class="mt-4 pt-4 border-t border-zinc-200 dark:border-zinc-700">
-                                        <a href="{{ route('articles.download-attachments', $article) }}" class="inline-flex items-center px-3 py-2 bg-blue-600 hover:bg-blue-700 text-white text-sm font-medium rounded-lg transition-colors duration-200">
+                                        <a href="{{ route('article.download-attachments', $article) }}" class="inline-flex items-center px-3 py-2 bg-blue-600 hover:bg-blue-700 text-white text-sm font-medium rounded-lg transition-colors duration-200">
                                             <svg class="w-4 h-4 mr-2" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 16v1a3 3 0 003 3h10a3 3 0 003-3v-1m-4-4l-4 4m0 0l-4-4m4 4V4"></path></svg>
                                             Download All
                                         </a>
