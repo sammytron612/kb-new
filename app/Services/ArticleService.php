@@ -139,7 +139,7 @@ class ArticleService
             Article::withoutSyncingToSearch(function () use ($article, $validated, $allAttachments) {
                 $article->update([
                     'title' => $validated['title'],
-                    'sectionid' => $validated['sectionid'],
+                    'sectionId' => $validated['sectionId'],
                     'tags' => isset($validated['tags']) ? explode(',', $validated['tags']) : [],
                     'attachments' => $allAttachments,
                     'attachCount' => count($allAttachments),
