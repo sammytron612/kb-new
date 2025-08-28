@@ -123,7 +123,7 @@ class ArticleController extends Controller
 
         $article = $this->articleService->updateArticle($article, $validated, $files);
 
-        return redirect()->route('articles.edit', $article->id)->with('success', 'Article updated successfully!');
+        return redirect()->route('article.edit', $article->id)->with('success', 'Article updated successfully!');
     }
 
     /**
