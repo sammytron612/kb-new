@@ -6,6 +6,7 @@ use Illuminate\Http\Request;
 use App\Models\Article;
 use App\Services\ArticleService;
 use App\Models\Section;
+use Illuminate\Support\Facades\Gate;
 
 class ArticleController extends Controller
 {
