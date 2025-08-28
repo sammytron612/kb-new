@@ -7,7 +7,7 @@
                     <div class="flex flex-col sm:flex-row sm:items-start sm:justify-between gap-4">
                         <!-- Article Title and Info (takes up remaining space) -->
                         <div class="flex-1 min-w-0">
-                            <a href="{{ route('articles.show', $article->id) }}"
+                            <a href="{{ route('article.show', $article->id) }}"
                                class="md:text-lg xs:text-md font-bold text-gray-900 dark:text-white hover:text-blue-600 dark:hover:text-blue-400 transition-colors duration-200 group-hover:text-blue-600">
                                 {{ $article->title }}
                             </a>

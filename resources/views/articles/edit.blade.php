@@ -44,7 +44,7 @@
 
             <!-- Form Content -->
             <div class="p-4 sm:p-6 lg:p-8">
-                <form action="{{ route('articles.update', $article->id) }}" method="POST" enctype="multipart/form-data" class="space-y-6">
+                <form action="{{ route('article.update', $article->id) }}" method="POST" enctype="multipart/form-data" class="space-y-6">
                     @csrf
                     @method('PUT')
 

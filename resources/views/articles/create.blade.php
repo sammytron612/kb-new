@@ -44,7 +44,7 @@
 
             <!-- Form Content -->
             <div class="p-8">
-                <form action="{{ route('articles.store') }}" method="POST" enctype="multipart/form-data" class="space-y-8">
+                <form action="{{ route('article.store') }}" method="POST" enctype="multipart/form-data" class="space-y-8">
                     @csrf
 
                     <!-- Basic Information Grid -->
