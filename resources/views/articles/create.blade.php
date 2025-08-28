@@ -70,7 +70,7 @@
                             </label>
                             <livewire:section-selector
                                 name="sectionid"
-                                :selected="old('section')"
+                                :selected="old('sectionid')"
                                 :required="true"
                                 placeholder="Search or select a section..."
                             />
