@@ -60,6 +60,10 @@ Route::middleware(['auth', 'can:isAdmin'])->group(function () {
 Route::get('/articles/{article}/shared', [\App\Http\Controllers\ArticleController::class, 'shared'])
     ->name('articles.shared')
     ->middleware('signed');
+    // Signed route for downloading attachments
+Route::get('article/{article}/attachment/{attachment}', [ArticleController::class, 'downloadAttachment'])
+        ->name('attachment.download')
+        ->middleware('signed');
 
 
 
