@@ -61,7 +61,7 @@
                                     @endif
                                 </div>
                                 <h2 class="text-xl font-bold text-gray-900 dark:text-white group-hover:text-blue-600 dark:group-hover:text-blue-400 transition-colors duration-200">
-                                    <a href="{{ route('articles.edit', $article->id) }}" class="hover:underline">
+                                    <a href="{{ route('article.edit', $article->id) }}" class="hover:underline">
                                         {{ $article->title }}
                                     </a>
                                 </h2>
