@@ -67,7 +67,7 @@
                                 </h2>
                             </div>
                             <div class="flex items-center space-x-2 ml-4">
-                                <a href="{{ route('articles.edit', $article->id) }}"
+                                <a href="{{ route('article.edit', $article->id) }}"
                                    class="inline-flex items-center px-3 py-1.5 bg-blue-600 hover:bg-blue-700 text-white text-sm font-medium rounded-lg transition-colors duration-200">
                                     <svg class="w-4 h-4 mr-1" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                                         <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M11 5H6a2 2 0 00-2 2v11a2 2 0 002 2h11a2 2 0 002-2v-5m-1.414-9.414a2 2 0 112.828 2.828L11.828 15H9v-2.828l8.586-8.586z"></path>
@@ -152,7 +152,7 @@
                                 </span>
                             </div>
                             <div class="flex items-center space-x-2">
-                                <a href="{{ route('articles.show', $article->id) }}"
+                                <a href="{{ route('article.show', $article->id) }}"
                                    class="inline-flex items-center px-3 py-1.5 text-sm font-medium text-gray-700 dark:text-gray-300 bg-white dark:bg-zinc-700 border border-gray-300 dark:border-zinc-600 rounded-lg hover:bg-gray-50 dark:hover:bg-zinc-600 transition-colors duration-200">
                                     <svg class="w-4 h-4 mr-1" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                                         <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 12a3 3 0 11-6 0 3 3 0 016 0z"></path>
@@ -184,7 +184,7 @@
                     <p class="text-gray-600 dark:text-gray-400 mb-6 max-w-md mx-auto">
                         You do nothave any draft articles.
                     </p>
-                    <a href="{{ route('articles.create') }}"
+                    <a href="{{ route('article.create') }}"
                        class="inline-flex items-center px-6 py-3 bg-blue-600 hover:bg-blue-700 text-white font-medium rounded-lg transition-colors duration-200">
                         <svg class="w-5 h-5 mr-2" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                             <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 4v16m8-8H4"></path>
@@ -197,7 +197,7 @@
 
         <!-- Mobile New Article Button -->
         <div class="sm:hidden fixed bottom-6 right-6">
-            <a href="{{ route('articles.create') }}"
+            <a href="{{ route('article.create') }}"
                class="inline-flex items-center justify-center w-14 h-14 bg-blue-600 hover:bg-blue-700 text-white rounded-full shadow-lg transition-colors duration-200">
                 <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                     <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 4v16m8-8H4"></path>
