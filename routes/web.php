@@ -2,13 +2,9 @@
 
 use Illuminate\Support\Facades\Route;
 use Livewire\Volt\Volt;
-
-
-
 use App\Http\Controllers\AdminController;
 use App\Livewire\ArticleSearch;
 use App\Http\Controllers\DraftsController;
-use App\Http\Controllers\EmailController;
 use App\Http\Controllers\ArticleController;
 use App\Models\Article;
 
