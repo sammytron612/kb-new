@@ -10,6 +10,7 @@ use App\Livewire\ArticleSearch;
 use App\Http\Controllers\DraftsController;
 use App\Http\Controllers\EmailController;
 use App\Http\Controllers\ArticleController;
+use App\Models\Article;
 
 
 
@@ -28,7 +29,7 @@ Route::middleware(['auth'])->group(function () {
     Route::get('dashboard', [\App\Http\Controllers\DashboardController::class, 'index'])->middleware(['verified'])->name('dashboard');
 
     Route::get('search', ArticleSearch::class)->name('search');
-    Route::get('/admin', [AdminController::class,'index'])->name('admin');
+
     Route::post('/upload-image', [\App\Http\Controllers\ImageUploadController::class, 'store'])->name('image.upload');
     Route::get('article/{article}/attachment/', [ArticleController::class, 'downloadAttachments'])
         ->name('attachment.download');
@@ -46,12 +47,16 @@ Route::middleware(['auth'])->group(function () {
 
 Route::middleware(['auth', 'can:isAdmin'])->group(function () {
     Route::view('/admin/users', 'admin.users')->name('admin.users');
-
-    Route::get('/admin/invites', [\App\Http\Controllers\InviteController::class, 'index'])->name('admin.invites');
+    Route::view('/admin', 'admin.index')->name('admin');
+    Route::view('/admin/invites', 'admin.invites')->name('admin.invites');
     Route::post('/admin/invites/send', [\App\Http\Controllers\InviteController::class, 'send'])->name('admin.invites.send');
-    Route::get('/admin/invites', [\App\Http\Controllers\AdminController::class, 'invites'])->name('admin.invites');
-    Route::get('/admin/approvals', [\App\Http\Controllers\AdminController::class, 'approvals'])->name('admin.approvals');
-    Route::get('/admin/settings', [\App\Http\Controllers\SettingsController::class, 'index'])->name('admin.settings');
+
+    Route::get('/admin/approvals', function() {
+        $articles = Article::where('approved', 0)->get();
+        return view('admin.approvals', compact('articles'));
+    })->name('admin.approvals');
+
+    Route::view('/admin/settings', 'admin.settings')->name('admin.settings');
     Route::get('/admin/approvals/{id}', [\App\Http\Controllers\ApprovalsController::class, 'index'])->name('approvals.show');
     Route::post('/admin/approvals/{id}/approve', [\App\Http\Controllers\ApprovalsController::class, 'approve'])->name('approvals.approve');
     Route::post('/admin/approvals/{id}/reject', [\App\Http\Controllers\ApprovalsController::class, 'reject'])->name('approvals.reject');
