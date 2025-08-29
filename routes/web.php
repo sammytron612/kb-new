@@ -25,8 +25,8 @@ Route::middleware(['auth'])->group(function () {
 
 Route::middleware(['auth'])->group(function () {
 
-    Route::get('/', [\App\Http\Controllers\DashboardController::class, 'index'])->middleware(['verified'])->name('home');;
-    Route::get('dashboard', [\App\Http\Controllers\DashboardController::class, 'index'])->middleware(['verified'])->name('dashboard');
+    Route::get('/', [ArticleController::class, 'index'])->middleware(['verified'])->name('home');;
+    Route::get('dashboard', [ArticleController::class, 'index'])->middleware(['verified'])->name('dashboard');
 
     Route::get('search', ArticleSearch::class)->name('search');
 
