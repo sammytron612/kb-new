@@ -77,6 +77,11 @@ class ArticleService
 
         } catch (\Exception $e) {
             DB::rollBack();
+            Log::info('error creating article', [
+                'article_id' => $article->id,
+                'article_title' => $article->title,
+                'message' => $e->getMessage()
+            ]);
             throw $e;
         }
     }
@@ -166,6 +171,11 @@ class ArticleService
 
         } catch (\Exception $e) {
             DB::rollBack();
+            Log::info('error updating article', [
+                'article_id' => $article->id,
+                'article_title' => $article->title,
+                'message' => $e->getMessage()
+            ]);
             throw $e;
         }
     }
@@ -198,6 +208,12 @@ class ArticleService
 
         } catch (\Exception $e) {
             DB::rollBack();
+            Log::info('error deleting article', [
+                'article_id' => $article->id,
+                'article_title' => $article->title,
+                'message' => $e->getMessage()
+            ]);
+
             throw $e;
         }
     }
