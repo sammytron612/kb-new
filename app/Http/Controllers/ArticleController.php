@@ -172,6 +172,6 @@ class ArticleController extends Controller
             }
         }
 
-        return view('articles.shared', compact('article', 'signedAttachmentUrls'));
+        return view('articles.signed-show', compact('article', 'signedAttachmentUrls'));
     }
 }
