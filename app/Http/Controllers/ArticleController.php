@@ -9,6 +9,10 @@ use App\Models\Section;
 use Illuminate\Support\Facades\Gate;
 
 class ArticleController extends Controller
+    /**
+     * Download all attachments for an article as a zip file.
+     */
+
 {
     public function __construct(private ArticleService $articleService)
     {
@@ -174,4 +178,13 @@ class ArticleController extends Controller
 
         return view('articles.signed-show', compact('article', 'signedAttachmentUrls'));
     }
+
+    public function downloadAttachments(Article $article)
+    {
+        $attachments = $article->attachments ?? [];
+        // Use AttachmentsService directly
+        $service = app(\App\Services\AttachmentsService::class);
+        return $service->downloadAttachments($attachments, $article->id);
+    }
+
 }

@@ -30,7 +30,9 @@ Route::middleware(['auth'])->group(function () {
     Route::get('search', ArticleSearch::class)->name('search');
     Route::get('/admin', [AdminController::class,'index'])->name('admin');
     Route::post('/upload-image', [\App\Http\Controllers\ImageUploadController::class, 'store'])->name('image.upload');
-    Route::get('article/{article}/download-attachments', [ArticleController::class, 'downloadAttachments'])->name('article.download-attachments');
+    Route::get('article/{article}/attachment/', [ArticleController::class, 'downloadAttachments'])
+        ->name('attachment.download');
+
     Route::get('/drafts', [DraftsController::class, 'index'])->name('drafts');
     Route::get('/stats', [\App\Http\Controllers\StatsController::class, 'index'])->name('stats');
     Route::get('/sections', [\App\Http\Controllers\SectionsController::class, 'index'])->name('sections.index')->middleware('can:canCreate');
@@ -57,15 +59,9 @@ Route::middleware(['auth', 'can:isAdmin'])->group(function () {
 
 //////// EXTERNAL ROUTES /////////
 
-Route::get('/articles/{article}/shared', [\App\Http\Controllers\ArticleController::class, 'shared'])
+Route::get('/external/{article}/shared', [\App\Http\Controllers\ArticleController::class, 'shared'])
     ->name('articles.shared')
     ->middleware('signed');
-    // Signed route for downloading attachments
-Route::get('article/{article}/attachment/{attachment}', [ArticleController::class, 'downloadAttachment'])
-        ->name('attachment.download')
-        ->middleware('signed');
-
-
 
 Route::get('/api/articles/most-viewed', [\App\Http\Controllers\Api\ArticleStatsController::class, 'mostViewed']);
 
