@@ -148,10 +148,30 @@ class ArticleController extends Controller
     }
 
 
-    public function shared(Article $article): void
+
+    public function shared(Article $article)
     {
         $article->increment('views');
 
-        return view('articles.shared', compact('article'));
+        // Generate signed URLs for attachments
+        $signedAttachmentUrls = [];
+        if (!empty($article->attachments)) {
+            foreach ($article->attachments as $attachment) {
+                $signedAttachmentUrls[] = [
+                    'filename' => basename($attachment),
+                    'original_path' => $attachment,
+                    'signed_url' => \URL::temporarySignedRoute(
+                        'attachment.download',
+                        now()->addHours(24), // URL expires in 24 hours
+                        [
+                            'article' => $article->id,
+                            'attachment' => basename($attachment)
+                        ]
+                    )
+                ];
+            }
+        }
+
+        return view('articles.shared', compact('article', 'signedAttachmentUrls'));
     }
 }
