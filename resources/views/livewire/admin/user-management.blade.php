@@ -1,4 +1,3 @@
-<!-- filepath: resources/views/livewire/user-management.blade.php -->
 <div class="container mx-auto py-8 px-4 md:px-8">
     <!-- Alert Messages -->
     @if (session()->has('success'))
@@ -14,13 +13,20 @@
     @endif
 
     <!-- Header Section -->
-    <div class="flex flex-col md:flex-row md:items-center md:justify-between mb-8">
+    <div class="text-center mb-4">
+        <div class="inline-flex items-center justify-center w-16 h-16 bg-white dark:bg-gray-800 rounded-2xl shadow-sm border border-gray-200 dark:border-gray-700 mb-6">
+            <svg class="w-8 h-8 text-gray-600 dark:text-gray-400" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 4.354a4 4 0 110 5.292M15 21H3v-1a6 6 0 0112 0v1zm0 0h6v-1a6 6 0 00-9-5.197m13.5-9a2.5 2.5 0 11-5 0 2.5 2.5 0 015 0z"></path>
+            </svg>
+        </div>
+    </div>
+    <div class="flex items-center justify-center mb-8">
         <div>
             <h1 class="text-3xl font-bold text-gray-900 dark:text-white mb-2">User Management</h1>
             <p class="text-gray-600 dark:text-gray-400">Manage user roles and account status</p>
-        </div>
-        <div class="mt-4 md:mt-0 text-sm text-gray-500 dark:text-gray-400">
-            Total Users: {{ $users->total() }}
+            <div class="font-semibold text-center mt-4 md:mt-0 text-sm text-gray-500 dark:text-gray-400">
+                Total Users: {{ $users->total() }}
+            </div>
         </div>
     </div>
 

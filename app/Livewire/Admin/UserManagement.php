@@ -1,5 +1,4 @@
 <?php
-// filepath: c:\Users\Kevin\kb-new\app\Livewire\Admin\UserManagement.php
 
 namespace App\Livewire\Admin;
 
