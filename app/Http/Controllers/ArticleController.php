@@ -18,9 +18,7 @@ class ArticleController extends Controller
     {
 
     }
-    /**
-     * Display a listing of the resource.
-     */
+
     public function index()
     {
         ///$topArticles = Article::orderByDesc('views')->limit(5)->get();

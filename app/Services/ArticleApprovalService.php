@@ -18,7 +18,7 @@ class ArticleApprovalService
     /**
      * Approve an article
      */
-    public function approveArticle(Article $article): Article
+    public function approveArticle(Article $article): void
     {
         try {
             $article->update(['approved' => true]);
@@ -41,7 +41,6 @@ class ArticleApprovalService
                 'article_title' => $article->title
             ]);
 
-            return $article;
 
         } catch (\Exception $e) {
             Log::error('Error approving article: ' . $e->getMessage(), [
@@ -55,7 +54,7 @@ class ArticleApprovalService
     /**
      * Reject an article
      */
-    public function rejectArticle(Article $article, string $reason = null): Article
+    public function rejectArticle(Article $article, string $reason = null): void
     {
         try {
             $article->update(['approved' => false]);
@@ -73,7 +72,6 @@ class ArticleApprovalService
                 'article_title' => $article->title
             ]);
 
-            return $article;
 
         } catch (\Exception $e) {
             Log::error('Error rejecting article: ' . $e->getMessage(), [
