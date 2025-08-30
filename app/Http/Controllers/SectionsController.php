@@ -4,9 +4,15 @@ namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 use App\Models\Section;
+use App\Services\SectionService;
 
 class SectionsController extends Controller
 {
+    public function __construct(private SectionService $sectionService)
+    {
+
+    }
+
     public function index()
     {
         $sections = Section::all(); // Get all sections, not just 5
@@ -17,43 +23,20 @@ class SectionsController extends Controller
     }
 
 
-public function store(Request $request)
-{
-    $request->validate([
-        'section' => 'required|string|max:255',
-        'parent_id' => 'nullable|integer',
-    ]);
-
-    // Check depth limit on server side as well
-    if ($request->parent_id && $request->parent_id != 0) {
-        $parentSection = Section::find($request->parent_id);
-        if ($parentSection) {
-            $depth = $this->calculateDepth($parentSection);
-
-            if ($depth >= 3) {
-                return redirect()->back()->with('error', 'Cannot create sections deeper than 4 levels. Great grandchildren are the maximum depth allowed.');
-            }
-        }
-    }
-
-    // Convert parent_id to appropriate value for database
-    $parentValue = ($request->parent_id && $request->parent_id != 0) ? $request->parent_id : 0;
-
-    Section::create([
-        'section' => $request->section,
-        'parent' => $parentValue,
-    ]);
-
-    return redirect()->back()->with('success', 'Section added successfully!');
-}
-
-private function calculateDepth($section, $depth = 0)
+    public function store(Request $request)
     {
-        if (!$section || $section->parent == 0) {
-            return $depth;
-        }
+        $request->validate([
+            'section' => 'required|string|max:255',
+            'parent_id' => 'nullable|integer',
+        ]);
 
-        $parentSection = Section::find($section->parent);
-        return $this->calculateDepth($parentSection, $depth + 1);
+        $status = $this->sectionService->store($request);
+
+        if ($status) {
+            return redirect()->back()->with('success', 'Section added successfully!');
+        } else {
+            return redirect()->back()->with('error', 'Failed to add section. Contact Admin');
+        }
     }
+
 }
