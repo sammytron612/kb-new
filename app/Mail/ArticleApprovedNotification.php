@@ -46,7 +46,7 @@ class ArticleApprovedNotification extends Mailable
             with: [
                 'article' => $this->article,
                 'author' => $this->author,
-                'articleUrl' => route('articles.show', $this->article->id),
+                'articleUrl' => route('article.show', $this->article->id),
             ]
         );
     }

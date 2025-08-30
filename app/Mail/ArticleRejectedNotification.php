@@ -47,7 +47,7 @@ class ArticleRejectedNotification extends Mailable
             with: [
                 'article' => $this->article,
                 'author' => $this->author,
-                'articleUrl' => route('articles.edit', $this->article->id),
+                'articleUrl' => route('article.edit', $this->article->id),
                 'reason' => $this->reason
             ]
         );
