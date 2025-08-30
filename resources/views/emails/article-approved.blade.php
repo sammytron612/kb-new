@@ -1,4 +1,3 @@
-{{-- filepath: resources/views/emails/article-approved.blade.php --}}
 <x-mail::message>
 # Your Article Has Been Approved!
 
