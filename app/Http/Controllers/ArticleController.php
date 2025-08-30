@@ -66,6 +66,7 @@ class ArticleController extends Controller
         }
         else {
             return redirect()->back()->with('error', 'Failed to create the article. Please try again.');
+        }
     }
 
     /**
