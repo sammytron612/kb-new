@@ -1,14 +1,13 @@
-<!-- filepath: c:\Users\Kevin\kb-new\resources\views\admin\index.blade.php -->
 <x-layouts.app.main :title="__('Admin Dashboard')">
     <div class="min-h-screen bg-gray-50 dark:bg-gray-900 relative">
-        <!-- Subtle Background Elements -->
+        <!--Background Elements -->
         <div class="absolute inset-0 overflow-hidden pointer-events-none opacity-30">
             <div class="absolute -top-20 -right-20 w-40 h-40 bg-blue-100 dark:bg-blue-900/20 rounded-full blur-2xl"></div>
             <div class="absolute -bottom-20 -left-20 w-40 h-40 bg-green-100 dark:bg-green-900/20 rounded-full blur-2xl"></div>
         </div>
 
         <div class="max-w-6xl mx-auto py-8 px-4 sm:px-6 lg:px-8 relative z-10">
-            <!-- Subtle Header Section -->
+            <!-- Header Section -->
             <div class="text-center mb-12">
                 <div class="inline-flex items-center justify-center w-16 h-16 bg-white dark:bg-gray-800 rounded-2xl shadow-sm border border-gray-200 dark:border-gray-700 mb-6">
                     <svg class="w-8 h-8 text-gray-600 dark:text-gray-400" fill="none" stroke="currentColor" viewBox="0 0 24 24">
