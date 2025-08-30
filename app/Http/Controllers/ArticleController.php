@@ -61,7 +61,11 @@ class ArticleController extends Controller
 
         $article = $this->articleService->createArticle($validated, $files);
 
-        return redirect()->back()->with('success', 'Article created successfully!');
+        if($article) {
+            return redirect()->back()->with('success', 'Article created successfully!');
+        }
+        else {
+            return redirect()->back()->with('error', 'Failed to create the article. Please try again.');
     }
 
     /**
@@ -118,10 +122,6 @@ class ArticleController extends Controller
             'article_body' => 'required|string',
         ]);
 
-
-
-
-
         $files = $request->hasFile('attachments') ? $request->file('attachments') : null;
 
         $article = $this->articleService->updateArticle($article, $validated, $files);
@@ -149,9 +149,12 @@ class ArticleController extends Controller
             abort(403, 'You are not authorized to delete this article.');
         }
 
-        $this->articleService->deleteArticle($article);
-
-        return redirect()->route('dashboard')->with('success', 'Article deleted successfully.');
+        $status = $this->articleService->deleteArticle($article);
+        if($status){
+            return redirect()->route('dashboard')->with('success', 'Article deleted successfully.');
+        } else {
+            return redirect()->route('dashboard')->with('error', 'Failed to delete the article. Please try again.');
+        }
     }
 
 

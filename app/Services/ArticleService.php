@@ -72,6 +72,7 @@ class ArticleService
             $this->handleEmailNotifications($article, $validated);
 
             DB::commit();
+
             return $article;
 
         } catch (\Exception $e) {
@@ -81,7 +82,8 @@ class ArticleService
                 'article_title' => $article->title,
                 'message' => $e->getMessage()
             ]);
-            throw $e;
+
+            return false;
         }
     }
 
@@ -175,6 +177,7 @@ class ArticleService
                 'article_title' => $article->title,
                 'message' => $e->getMessage()
             ]);
+
             throw $e;
         }
     }
@@ -203,7 +206,7 @@ class ArticleService
             $deleted = $article->delete();
 
             DB::commit();
-            return $deleted;
+            return true;
 
         } catch (\Exception $e) {
             DB::rollBack();
@@ -212,8 +215,7 @@ class ArticleService
                 'article_title' => $article->title,
                 'message' => $e->getMessage()
             ]);
-
-            throw $e;
+            return false;
         }
     }
 }
