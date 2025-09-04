@@ -32,19 +32,19 @@ class ArticleSearch extends Component
                 // Use Meilisearch client directly
                 $client = new Client(config('scout.meilisearch.host'), config('scout.meilisearch.key'));
                 $index = $client->index('articles'); // Your index name
-                
+
                 $results = $index->search($this->search, [
                     'attributesToHighlight' => ['title', 'body'],
                     'filter' => 'published = true AND approved = true',
                     'limit' => $this->perPage,
                     'offset' => ($this->page - 1) * $this->perPage
                 ]);
-                
+
                 // Convert SearchResult object to array and then to collection
                 $resultsArray = $results->toArray();
                 $articles = collect($resultsArray['hits']);
                 $totalHits = $resultsArray['estimatedTotalHits'] ?? 0;
-                
+
                 // Create pagination data
                 $paginationData = [
                     'total' => $totalHits,
@@ -92,20 +92,20 @@ class ArticleSearch extends Component
         if (strlen($this->search) > 2 && config('scout.enabled')) {
             $client = new Client(config('scout.meilisearch.host'), config('scout.meilisearch.key'));
             $index = $client->index('articles');
-            
+
             $results = $index->search($this->search, [
                 'filter' => 'published = true AND approved = true',
                 'limit' => 1,
                 'offset' => 0
             ]);
-            
+
             $resultsArray = $results->toArray();
             $totalHits = $resultsArray['estimatedTotalHits'] ?? 0;
             $lastPage = ceil($totalHits / $this->perPage);
-            
+
             return $this->page < $lastPage;
         }
-        
+
         return false;
     }
 }

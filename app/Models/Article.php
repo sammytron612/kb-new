@@ -70,20 +70,29 @@ class Article extends Model
     public function scopeFullTextSearch(Builder $query, string $keyword): Builder
     {
         return $query
-            ->join('article_bodies', 'article_bodies.article_id', '=', 'articles.id')
+            ->leftJoin('article_bodies', 'article_bodies.article_id', '=', 'articles.id')
             ->where(function ($q) use ($keyword) {
-                $q->whereRaw("MATCH(articles.title) AGAINST (? IN BOOLEAN MODE)", [$keyword .'*'])
-                  ->orWhereRaw("MATCH(article_bodies.body) AGAINST (? IN BOOLEAN MODE)", [$keyword .'*'])
-                  ->orWhere("articles.tags", 'like', '%' . $keyword .'%');
-            })
-
-            ->where(function ($q) {
-                    $q->whereNull('expires')
-                    ->orWhere('expires', '>', now());
+                // Try FULLTEXT search first, but also include LIKE as fallback
+                $q->where(function($subQ) use ($keyword) {
+                    // FULLTEXT search
+                    $subQ->whereRaw("MATCH(articles.title) AGAINST (? IN BOOLEAN MODE)", [$keyword])
+                         ->orWhereRaw("MATCH(article_bodies.body) AGAINST (? IN BOOLEAN MODE)", [$keyword]);
                 })
-            ->where('articles.approved',1)
-            ->where('articles.published',1)
+                ->orWhere(function($subQ) use ($keyword) {
+                    // LIKE search as fallback
+                    $subQ->where('articles.title', 'like', '%' . $keyword . '%')
+                         ->orWhere('article_bodies.body', 'like', '%' . $keyword . '%');
+                })
+                ->orWhere('articles.tags', 'like', '%' . $keyword . '%');
+            })
+            ->where(function ($q) {
+                    $q->whereNull('articles.expires')
+                    ->orWhere('articles.expires', '>', now());
+                })
+            ->where('articles.approved', 1)
+            ->where('articles.published', 1)
             ->select('articles.*')
+            ->distinct()
             ->with('body');
     }
 
@@ -120,6 +129,10 @@ class Article extends Model
             'sectionid' => $this->sectionid,
             'author' => $this->author,
             'scope' => $this->scope,
+            'views' => (int) $this->views,
+            'rating' => (float) $this->rating,
+            'created_at' => $this->created_at?->toISOString(),
+            'updated_at' => $this->updated_at?->toISOString(),
         ];
     }
 }
