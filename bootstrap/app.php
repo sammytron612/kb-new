@@ -12,6 +12,8 @@ return Application::configure(basePath: dirname(__DIR__))
     )
     ->withMiddleware(function (Middleware $middleware) {
 
+        $middleware->trustProxies(at: '*');
+
         $middleware->alias([
             'check.user.status' => \App\Http\Middleware\CheckUserStatus::class,
             'signed.url' => \App\Http\Middleware\SignedUrl::class,
