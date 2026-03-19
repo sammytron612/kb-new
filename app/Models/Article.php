@@ -74,16 +74,16 @@ class Article extends Model
             ->where(function ($q) use ($keyword) {
                 // Try FULLTEXT search first, but also include LIKE as fallback
                 $q->where(function($subQ) use ($keyword) {
-                    // FULLTEXT search
-                    $subQ->whereRaw("MATCH(articles.title) AGAINST (? IN BOOLEAN MODE)", [$keyword])
-                         ->orWhereRaw("MATCH(article_bodies.body) AGAINST (? IN BOOLEAN MODE)", [$keyword]);
+                    // PostgreSQL full-text search
+                    $subQ->whereRaw("to_tsvector('english', articles.title) @@ plainto_tsquery('english', ?)", [$keyword])
+                         ->orWhereRaw("to_tsvector('english', article_bodies.body) @@ plainto_tsquery('english', ?)", [$keyword]);
                 })
                 ->orWhere(function($subQ) use ($keyword) {
-                    // LIKE search as fallback
-                    $subQ->where('articles.title', 'like', '%' . $keyword . '%')
-                         ->orWhere('article_bodies.body', 'like', '%' . $keyword . '%');
+                    // ILIKE fallback for partial matches
+                    $subQ->whereRaw('articles.title ILIKE ?', ['%' . $keyword . '%'])
+                         ->orWhereRaw('article_bodies.body ILIKE ?', ['%' . $keyword . '%']);
                 })
-                ->orWhere('articles.tags', 'like', '%' . $keyword . '%');
+                ->orWhereRaw('articles.tags::text ILIKE ?', ['%' . $keyword . '%']);
             })
             ->where(function ($q) {
                     $q->whereNull('articles.expires')
