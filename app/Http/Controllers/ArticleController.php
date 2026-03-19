@@ -48,7 +48,7 @@ class ArticleController extends Controller
         $validated = $request->validate([
             'title' => 'required|string|max:255',
             'tags' => 'nullable|string',
-            'section_id' => 'required|integer|exists:sections,id',
+            'sectionid' => 'required|integer|exists:sections,id',
             'attachments.*' => 'nullable|file|max:10240',
             'attachments' => 'nullable|array|max:3',
             'scope' => 'required|integer|in:1,2',
@@ -115,7 +115,7 @@ class ArticleController extends Controller
         $validated = $request->validate([
             'title' => 'required|string|max:255',
             'tags' => 'nullable|string',
-            'section_id' => 'required|integer|exists:sections,id',
+            'sectionid' => 'required|integer|exists:sections,id',
             'scope' => 'required|integer|in:1,2',
             'attachments.*' => 'nullable|file|max:10240',
             'published' => 'required|integer|in:0,1',
