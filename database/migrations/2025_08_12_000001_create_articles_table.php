@@ -16,11 +16,11 @@ return new class extends Migration
             $table->string('slug')->unique()->nullable();
             $table->unsignedBigInteger('author');
             $table->string('author_name');
-            $table->unsignedBigInteger('sectionId');
+            $table->unsignedBigInteger('section_id');
             $table->json('tags')->nullable();
             $table->json('attachments')->nullable();
             $table->unsignedBigInteger('views')->default(0);
-            $table->unsignedInteger('attachCount')->default(0);
+            $table->unsignedInteger('attach_count')->default(0);
             $table->string('scope')->default('1');
             $table->json('images')->nullable();
             $table->float('rating')->default(0);

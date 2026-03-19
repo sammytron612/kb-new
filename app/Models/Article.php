@@ -19,11 +19,11 @@ class Article extends Model
         'slug',
         'author',
         'author_name',
-        'sectionId',
+        'section_id',
         'tags',
         'attachments',
         'views',
-        'attachCount',
+        'attach_count',
         'scope',
         'images',
         'rating',
@@ -50,7 +50,7 @@ class Article extends Model
 
     public function section()
     {
-        return $this->belongsTo(Section::class, 'sectionId', 'id');
+        return $this->belongsTo(Section::class, 'section_id', 'id');
     }
 
     public function authorUser()
@@ -126,7 +126,7 @@ class Article extends Model
             'body' => $bodyContent, // Include body content
             'approved' => (bool) $this->approved,
             'published' => (bool) $this->published,
-            'sectionid' => $this->sectionid,
+            'section_id' => $this->section_id,
             'author' => $this->author,
             'scope' => $this->scope,
             'views' => (int) $this->views,

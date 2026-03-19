@@ -67,7 +67,7 @@
                                 Section <span class="text-red-500">*</span>
                             </label>
                             <livewire:section-selector
-                                name="sectionId"
+                                name="section_id"
                                 :selected="old('section')"
                                 :required="true"
                                 placeholder="Search or select a section..."
